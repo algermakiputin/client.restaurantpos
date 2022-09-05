@@ -4,8 +4,10 @@ import Searchbar from "../../searchbar/Searchbar";
 import Categories from "../../categories/Categories";
 import ProductsTable from "../../productsTable/ProductsTable";
 import OrdersTable from "../../ordersTable/OrdersTable";
+import { Dimension } from "../../window/Dimension";
+const windowDimension = Dimension();
 
-function Pos () {
+function Pos () { 
     return <ThemeProvider >  
         <Container fluid={1}>
             <Row  style={styles.container}>
@@ -25,14 +27,15 @@ function Pos () {
 export default Pos;
 
 const styles = {
-    container: {
-        minHeight: '1000px',
+    container: { 
         textAlign: 'left',
         minWidth:'100%',
     },
     itemsCol : {
         backgroundColor:'#f4f4f5',
-        padding: '20px 40px'
+        padding: '20px 40px',
+        overflow: 'auto', 
+        height: `${windowDimension.height}px`
     },
     orderCol: {
         backgroundColor: '#ffffff',

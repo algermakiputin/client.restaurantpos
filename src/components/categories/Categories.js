@@ -1,5 +1,3 @@
-import { Row, Col } from 'react-bootstrap';
-
 function Categories () {
     return <div style={styles.row}>
         <span style={styles.categoryName}>Hello World</span> 
@@ -17,7 +15,8 @@ function Categories () {
 const styles = {
     row: {
         overflow: 'auto',
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        marginBottom: '20px'
     },
     categoryName: {
         float: 'none',
