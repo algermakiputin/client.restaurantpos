@@ -1,5 +1,5 @@
 import { Row, Col, Button, ThemeProvider} from 'react-bootstrap';
-import { Dimension } from '../window/Dimension';
+import { Dimension } from '../../../window/Dimension';
 const dimension = Dimension();
 
 const getComponentsHeight = function() {
