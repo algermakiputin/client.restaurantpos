@@ -1,7 +1,7 @@
 import { Row, Col, Button, ThemeProvider} from 'react-bootstrap';
 import { Dimension } from '../../../window/Dimension';
 import { useDispatch, useSelector } from 'react-redux'; 
-import { removeItem, emptyCart } from '../../../cart/cartSlice'; 
+import { removeItem, emptyCart, increaseQuantity, descreaseQuantity } from '../../../cart/cartSlice'; 
 
 const dimension = Dimension();
 
@@ -20,15 +20,7 @@ const getComponentsHeight = function() {
 const componentsHeight = getComponentsHeight(); 
 function Cart () { 
     const cart = useSelector((state) => state.cart);  
-    const dispatch = useDispatch();
-
-    const removeLineItem = (id) => { 
-        dispatch(removeItem({id: id}));
-    }
-
-    const resetCart = () => { 
-        dispatch(emptyCart());
-    }
+    const dispatch = useDispatch(); 
 
     const summary = () => { 
         const subTotal = cart?.reduce((partialSum, item) =>  partialSum + (item.price * item.quantity), 0);
@@ -38,26 +30,36 @@ function Cart () {
     }
 
     const Orders = () => {
-        return cart?.map((item, index) => (
-            <Row style={styles.lineItem} key={index}>
-                <Col>
-                    <div style={styles.product}>{item.name}</div>
-                    <div style={styles.price}>{item.price}</div>
-                </Col>
-                <Col style={styles.ordersTableRight}>
-                    <div style={styles.quantity}>{item.quantity}  &nbsp;
-                        <Button size='sm' onClick={() => removeLineItem(item.id)}>-</Button>
-                    </div>
-                </Col>
-            </Row>
-        ));
+        return cart.length ? (
+            cart?.map((item, index) => (
+                <Row style={styles.lineItem} key={index}>
+                    <Col>
+                        <div style={styles.product}>{item.name}</div>
+                        <div style={styles.price}>{item.price}</div>
+                    </Col>
+                    <Col style={styles.ordersTableRight}>
+                        <div style={styles.quantity}>  
+                            <Button 
+                                style={styles.actionButton} 
+                                size='sm' 
+                                onClick={() => item.quantity ? dispatch(descreaseQuantity(item.id))  : dispatch(removeItem(item.id))}>-</Button>
+                            &nbsp;&nbsp;&nbsp;<span>{item.quantity}</span>&nbsp;&nbsp;&nbsp;
+                            <Button 
+                                style={styles.actionButton} 
+                                size='sm' 
+                                onClick={() => dispatch(increaseQuantity(item.id))}>+</Button>
+                        </div>
+                    </Col>
+                </Row>
+            ))
+        ) : <span>Select item to add product...</span>;
     }
 
     return (
         <ThemeProvider style={{position:'relative'}}>
             <Row style={styles.header}>
                 <Col><h4>Order</h4></Col>
-                <Col style={styles.headerRight}><Button onClick={resetCart} size='sm'>X</Button></Col>
+                <Col style={styles.headerRight}><Button onClick={() => dispatch(emptyCart())} size='sm'>X</Button></Col>
             </Row>
             <div style={styles.lineItemsWrapper}>
                 <Orders />
@@ -94,8 +96,10 @@ const styles = {
     lineItemsWrapper: {
         height: `${componentsHeight.orderLineHeight}px`,
         borderBottom: 'solid 1px #eee',
-        marginBottom: '20px',
-        overflow: 'auto'
+        marginBottom: '20px', 
+        width: '100%', 
+        position: 'relative',
+        overflowY: 'scroll'
     },
     lineItem: {
         alignItems: 'center',
@@ -123,7 +127,14 @@ const styles = {
         height: `${componentsHeight.actionHeight}px`,
     },
     button: {
-        width: '100%'
+        width: '100%',
+        borderRadius: 0
+    },
+    actionButton: {
+        backgroundColor: "transparent",
+        borderColor: "#f4f4f5",
+        color: "#333333",
+        borderRadius: '0px'
     }
 }
 
