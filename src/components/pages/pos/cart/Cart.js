@@ -2,6 +2,8 @@ import { Row, Col, Button, ThemeProvider} from 'react-bootstrap';
 import { Dimension } from '../../../window/Dimension';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { removeItem, emptyCart, increaseQuantity, descreaseQuantity } from '../../../cart/cartSlice'; 
+import Receipt from '../receipt/Receipt'; 
+import Payment from '../payment/Payment'; 
 
 const dimension = Dimension();
 
@@ -20,18 +22,11 @@ const getComponentsHeight = function() {
 const componentsHeight = getComponentsHeight(); 
 function Cart () { 
     const cart = useSelector((state) => state.cart);  
-    const dispatch = useDispatch(); 
-
-    const summary = () => { 
-        const subTotal = cart?.reduce((partialSum, item) =>  partialSum + (item.price * item.quantity), 0);
-        return {
-            subTotal: subTotal.toFixed(2)
-        }
-    }
+    const dispatch = useDispatch();  
 
     const Orders = () => {
-        return cart.length ? (
-            cart?.map((item, index) => (
+        return cart?.lineItems?.length ? (
+            cart?.lineItems?.map((item, index) => (
                 <Row style={styles.lineItem} key={index}>
                     <Col>
                         <div style={styles.product}>{item.name}</div>
@@ -69,18 +64,20 @@ function Cart () {
                     Sub total:
                 </Col>
                 <Col xs={6} style={styles.summaryRight}>
-                    { summary().subTotal }
+                    { cart.total.toFixed(2) }
                 </Col>
                 <Col xs={6}>
                     Total:
                 </Col>
                 <Col xs={6} style={styles.summaryRight}>
-                    { summary().subTotal }
+                    { cart.total.toFixed(2) }
                 </Col>
             </Row>
             <Row styles={styles.actions}>
                 <Col><Button style={styles.button}>Proccess</Button></Col>
             </Row>
+            <Receipt />
+            <Payment />
         </ThemeProvider>
     );
 }
