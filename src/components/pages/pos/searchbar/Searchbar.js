@@ -16,7 +16,7 @@ function Searchbar() {
           </Form.Label>
           <InputGroup className="mb-2"> 
             <Form.Control id="searchbar" autoComplete='off' placeholder="Search Product..." onKeyUp={(event) => dispatch(search(event.target.value))}/>
-            <InputGroup.Text style={{padding:0, border:0}}><Button style={{borderRadius:0, background: "#2F80ED", borderColor: "#2F80ED"}}> Search</Button></InputGroup.Text>
+            <InputGroup.Text style={{padding:0, border:0}}><Button style={{borderRadius:0, background: "#376897", borderColor: "#376897"}}> Search</Button></InputGroup.Text>
           </InputGroup>
         </Col>
         <Col xs="4">

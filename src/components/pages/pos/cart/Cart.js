@@ -53,7 +53,7 @@ function Cart () {
     return (
         <ThemeProvider style={{position:'relative'}}>
             <Row style={styles.header}>
-                <Col xs={9}><h4 style={{marginBottom: 0}}>Order Details</h4></Col>
+                <Col xs={9}><h4 style={{marginBottom: 0, fontSize: '1.25em'}}>Order Details</h4></Col>
                 <Col xs={3} style={styles.headerRight}>
                     <Button 
                         style={styles.resetButton} 
@@ -63,13 +63,7 @@ function Cart () {
             <div style={styles.lineItemsWrapper}>
                 <Orders />
             </div>
-            <Row style={styles.summary}>
-                {/* <Col xs={6}>
-                    Sub total:
-                </Col>
-                <Col xs={6} style={styles.summaryRight}>
-                    { cart.total.toFixed(2) }
-                </Col> */}
+            <Row style={styles.summary}> 
                 <Col xs={6}>
                     <span style={{fontSize: '1.2em', fontWeight: 500}}>Total:</span>
                 </Col>
@@ -90,9 +84,10 @@ const styles = {
     header: {
         alignItems: 'center',
         marginBottom: '15px',
-        backgroundColor: '#f4f4f5',
+        backgroundColor: '#FF9933',
         padding: '10px',
-        borderRadius: '5px'
+        borderRadius: '5px',
+        color: "#fff"
     },
     headerRight: {
         textAlign:'right'
@@ -142,8 +137,8 @@ const styles = {
         width: '100%',
         borderRadius: 0,
         height: '45px',
-        backgroundColor: "#2F80ED",
-        borderColor: "#2F80ED"
+        backgroundColor: "#376897",
+        borderColor: "#376897"
     },
     actionButton: {
         backgroundColor: "transparent",
@@ -152,10 +147,9 @@ const styles = {
         borderRadius: '0px'
     },
     resetButton: {
-        backgroundColor: "#333", 
+        backgroundColor: "#fff", 
         borderColor: "#eee", 
-        color: "#fff", 
-        opacity: 0.5, 
+        color: "#000",  
         cursor: 'pointer'
     }
 }

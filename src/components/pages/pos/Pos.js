@@ -14,12 +14,13 @@ function Pos () {
     useEffect(() => {
         document.title = "Point of Sale"
     });
-    
+    //376897
+    //55BDE5
     return ( 
         <ThemeProvider >  
             <Container fluid={1}>
                 <Row  style={styles.container}>
-                    <Col xs={1} style={{backgroundColor: "#333", width: 'inherit'}}> 
+                    <Col xs={1} style={{backgroundColor: "#28282b", width: 'inherit'}}> 
                         <Sidebar />
                     </Col>
                     <Col style={styles.itemsCol}> 
@@ -44,7 +45,7 @@ const styles = {
         minWidth:'100%',
     },
     itemsCol : {
-        backgroundColor:'#f4f4f5',
+        backgroundColor:'#EFF2F5',
         padding: '20px 40px',
         overflow: 'auto', 
         height: `${windowDimension.height}px`
