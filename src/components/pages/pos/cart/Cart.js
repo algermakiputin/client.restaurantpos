@@ -9,9 +9,9 @@ const dimension = Dimension();
 
 const getComponentsHeight = function() {
     const height = dimension.height;
-    const orderLineHeight = height / 1.45 - 55;
-    const summaryHeight = orderLineHeight / 5;
-    const actionHeight = orderLineHeight / 5;
+    const orderLineHeight = height / 1.45 - 20;
+    const summaryHeight = orderLineHeight / 10;
+    const actionHeight = orderLineHeight / 8;
     return {
         orderLineHeight,
         summaryHeight,
@@ -54,20 +54,24 @@ function Cart () {
         <ThemeProvider style={{position:'relative'}}>
             <Row style={styles.header}>
                 <Col xs={9}><h4 style={{marginBottom: 0}}>Order Details</h4></Col>
-                <Col xs={3} style={styles.headerRight}><Button onClick={() => dispatch(emptyCart())} size='sm'>X</Button></Col>
+                <Col xs={3} style={styles.headerRight}>
+                    <Button 
+                        style={styles.resetButton} 
+                        onClick={() => dispatch(emptyCart())} size='sm'>X</Button>
+                </Col>
             </Row>
             <div style={styles.lineItemsWrapper}>
                 <Orders />
             </div>
             <Row style={styles.summary}>
-                <Col xs={6}>
+                {/* <Col xs={6}>
                     Sub total:
                 </Col>
                 <Col xs={6} style={styles.summaryRight}>
                     { cart.total.toFixed(2) }
-                </Col>
+                </Col> */}
                 <Col xs={6}>
-                    Total:
+                    <span style={{fontSize: '1.2em', fontWeight: 500}}>Total:</span>
                 </Col>
                 <Col xs={6} style={styles.summaryRight}>
                     { cart.total.toFixed(2) }
@@ -128,7 +132,7 @@ const styles = {
     },
     summaryRight: {
         textAlign: 'right',
-        fontSize: '1.15em',
+        fontSize: '1.2em',
         fontWeight: 500
     },
     actions: {
@@ -138,12 +142,21 @@ const styles = {
         width: '100%',
         borderRadius: 0,
         height: '45px',
+        backgroundColor: "#2F80ED",
+        borderColor: "#2F80ED"
     },
     actionButton: {
         backgroundColor: "transparent",
         borderColor: "#f4f4f5",
         color: "#333333",
         borderRadius: '0px'
+    },
+    resetButton: {
+        backgroundColor: "#333", 
+        borderColor: "#eee", 
+        color: "#fff", 
+        opacity: 0.5, 
+        cursor: 'pointer'
     }
 }
 

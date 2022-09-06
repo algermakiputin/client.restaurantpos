@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, ThemeProvider, Container } from 'react-bootstrap';
 import Searchbar from "./searchbar/Searchbar";
 import Categories from "./categories/Categories";
@@ -10,6 +10,11 @@ import Sidebar from "../../template/Sidebar";
 const windowDimension = Dimension();
 
 function Pos () { 
+
+    useEffect(() => {
+        document.title = "Point of Sale"
+    });
+    
     return ( 
         <ThemeProvider >  
             <Container fluid={1}>

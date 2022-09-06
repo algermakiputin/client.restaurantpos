@@ -2,22 +2,37 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const productSlice = createSlice({
     name: 'product',
-    initialState: [{
-        id: '125125',
-        name: 'test',
-        price: 1,
-        quantity: 1
-    }],
+    initialState: {
+        all: [],
+        result: []
+    },
     reducers: {
-        setProducts: (state, action) => {
-            console.log(action);
-            return [
-                ...state,
-                ...action.payload
-            ]
+        setProducts: (state, action) => { 
+            return {
+                result: [
+                    ...state.all,
+                    ...action.payload
+                ],
+                all: [
+                    ...state.all,
+                    ...action.payload
+                ]
+            }
+        },
+        search: (state, action) => {  
+            return {
+                result: state.all.filter((item) => item.name.toLowerCase().includes(action.payload.toLowerCase())),
+                all: state.all
+            };
+        },
+        filterCategory: (state, action) => {
+            return {
+                result: state.all.filter((item) => item.category_id === Number(action.payload) || action.payload === ''),
+                all: state.all
+            };
         }
     }
 });
 
-export const { setProducts } = productSlice.actions;
+export const { setProducts, search, filterCategory } = productSlice.actions;
 export default productSlice.reducer;

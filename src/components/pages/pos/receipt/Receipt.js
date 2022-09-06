@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Row, Col } from 'react-bootstrap';
 
 function Receipt() {
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
 
     function modalHandler() {
         setShow(!show);
