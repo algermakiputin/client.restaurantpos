@@ -7,7 +7,7 @@ const dimension = Dimension();
 
 const getComponentsHeight = function() {
     const height = dimension.height;
-    const orderLineHeight = height / 1.45 - 40;
+    const orderLineHeight = height / 1.45 - 55;
     const summaryHeight = orderLineHeight / 5;
     const actionHeight = orderLineHeight / 5;
     return {
@@ -25,7 +25,7 @@ function Cart () {
     const summary = () => { 
         const subTotal = cart?.reduce((partialSum, item) =>  partialSum + (item.price * item.quantity), 0);
         return {
-            subTotal
+            subTotal: subTotal.toFixed(2)
         }
     }
 
@@ -58,8 +58,8 @@ function Cart () {
     return (
         <ThemeProvider style={{position:'relative'}}>
             <Row style={styles.header}>
-                <Col><h4>Order</h4></Col>
-                <Col style={styles.headerRight}><Button onClick={() => dispatch(emptyCart())} size='sm'>X</Button></Col>
+                <Col xs={9}><h4 style={{marginBottom: 0}}>Order Details</h4></Col>
+                <Col xs={3} style={styles.headerRight}><Button onClick={() => dispatch(emptyCart())} size='sm'>X</Button></Col>
             </Row>
             <div style={styles.lineItemsWrapper}>
                 <Orders />
@@ -75,7 +75,7 @@ function Cart () {
                     Total:
                 </Col>
                 <Col xs={6} style={styles.summaryRight}>
-                    344.75
+                    { summary().subTotal }
                 </Col>
             </Row>
             <Row styles={styles.actions}>
@@ -88,7 +88,10 @@ function Cart () {
 const styles = {
     header: {
         alignItems: 'center',
-        marginBottom: '15px'
+        marginBottom: '15px',
+        backgroundColor: '#f4f4f5',
+        padding: '10px',
+        borderRadius: '5px'
     },
     headerRight: {
         textAlign:'right'
@@ -102,33 +105,42 @@ const styles = {
         overflowY: 'scroll'
     },
     lineItem: {
-        alignItems: 'center',
-        marginBottom: '15px'
+        alignItems: 'center', 
+        borderBottom: 'dashed 1px #f1f1f1',
+        paddingTop: '5px',
+        paddingBottom: '5px'
     },
     ordersTableRight: {
         textAlign: 'right'
     },
     product: {
-        fontWeight: 500
+        fontWeight: 500,
+        fontSize: '1em',
     },
     price: {
-        opacity: '0.6'
+        opacity: '0.6',
+        fontSize: '0.9em',
     },
     quantity: {
-        fontWeight: 500
+        fontWeight: 500,
+        fontSize: '1em'
     },
     summary: {
         height: `${componentsHeight.summaryHeight}px`,
+        marginBottom: '5px'
     },
     summaryRight: {
         textAlign: 'right',
+        fontSize: '1.15em',
+        fontWeight: 500
     },
     actions: {
         height: `${componentsHeight.actionHeight}px`,
     },
     button: {
         width: '100%',
-        borderRadius: 0
+        borderRadius: 0,
+        height: '45px',
     },
     actionButton: {
         backgroundColor: "transparent",

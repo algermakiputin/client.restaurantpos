@@ -1,11 +1,14 @@
 import { Row, Col } from 'react-bootstrap';
 import { addLineItem } from '../../../cart/cartSlice';
-import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react'; 
+import { setProducts } from '../../../product/productSlice';
+
+var isMounted = false;
 
 function ProductsTable () {
     const dispatch = useDispatch();
-    const [products, setProducts] = useState();
+    const products = useSelector((state) => state.product);
 
     const addItemHandler = (item) => { 
         dispatch(addLineItem({...item, quantity: 1}));
@@ -44,18 +47,20 @@ function ProductsTable () {
                 price: 95
             },
         ];
-
-        setProducts(products);
-    }, []);
+        if (!isMounted) { 
+            isMounted = true;
+            dispatch(setProducts(products));
+        }
+    }, [dispatch]);
 
     return (
         <Row>
-            { products?.map((item) => (
-                <Col xs={3}>
+            { products?.map((item, index) => (
+                <Col xs={3} key={index}>
                     <div style={styles.product} onClick={() => addItemHandler(item)}>
                         <div style={styles.image}></div>
                         <div style={styles.title}>{item.name}</div>
-                        <div style={styles.price}>{item.price}</div>
+                        <div style={styles.price}>{item.price.toFixed(2)}</div>
                     </div>
                 </Col>
             ))}  
@@ -83,7 +88,7 @@ const styles = {
         fontWeight: '500', 
     },
     price: {
-        color: 'orange'
+        color: '#777'
     }
 }
 

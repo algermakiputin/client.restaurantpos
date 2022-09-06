@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
-function Categories () {
-    const [categories, setCategories] = useState();
+var isMounted = false;
 
+function Categories () {
+    const [categories, setCategories] = useState(); 
+    
     useEffect(() => {
         const categories = [
             {
@@ -30,16 +32,21 @@ function Categories () {
                 name: 'Pork and beans'
             },
         ];
-        setCategories(categories);
+        
+        if (!isMounted) {
+            isMounted = true;
+            setCategories(categories); 
+        }
     }, []);
     return (
-        <div style={styles.row}>
-            {
-                categories?.map((category) => (
-                    <span style={styles.categoryName}>{category.name}</span> 
-                ))
-            }
-        </div>
+        <></>
+        // <div style={styles.row}>
+        //     {
+        //         categories?.map((category, index) => (
+        //             <span key={index} style={styles.categoryName}>{category.name}</span> 
+        //         ))
+        //     }
+        // </div>
     );
 }
 

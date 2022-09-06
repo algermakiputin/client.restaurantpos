@@ -5,6 +5,8 @@ import Categories from "./categories/Categories";
 import ProductsTable from "./productsTable/ProductsTable";
 import Cart from "./cart/Cart";
 import { Dimension } from "../../window/Dimension"; 
+import Sidebar from "../../template/Sidebar";
+
 const windowDimension = Dimension();
 
 function Pos () { 
@@ -12,7 +14,10 @@ function Pos () {
         <ThemeProvider >  
             <Container fluid={1}>
                 <Row  style={styles.container}>
-                    <Col style={styles.itemsCol} xs={8}> 
+                    <Col xs={1} style={{backgroundColor: "#333", width: 'inherit'}}> 
+                        <Sidebar />
+                    </Col>
+                    <Col style={styles.itemsCol}> 
                         <Searchbar />
                         <Categories />
                         <ProductsTable />
