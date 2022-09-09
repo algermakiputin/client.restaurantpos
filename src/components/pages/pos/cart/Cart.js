@@ -1,25 +1,12 @@
 import { Row, Col, Button, ThemeProvider} from 'react-bootstrap';
-import { Dimension } from '../../../window/Dimension';
+import { getComponentsHeight } from '../../../window/Dimension';
 import { useDispatch, useSelector } from 'react-redux'; 
-import { removeItem, emptyCart, increaseQuantity, descreaseQuantity } from '../../../cart/cartSlice'; 
+import { removeItem, emptyCart, increaseQuantity, descreaseQuantity, setPaying } from '../../../cart/cartSlice'; 
 import Receipt from '../receipt/Receipt'; 
 import Payment from '../payment/Payment'; 
-
-const dimension = Dimension();
-
-const getComponentsHeight = function() {
-    const height = dimension.height;
-    const orderLineHeight = height / 1.45 - 20;
-    const summaryHeight = orderLineHeight / 10;
-    const actionHeight = orderLineHeight / 8;
-    return {
-        orderLineHeight,
-        summaryHeight,
-        actionHeight
-    }
-}
-
+ 
 const componentsHeight = getComponentsHeight(); 
+
 function Cart () { 
     const cart = useSelector((state) => state.cart);  
     const dispatch = useDispatch();  
@@ -50,6 +37,10 @@ function Cart () {
         ) : <span>Select item to add product...</span>;
     }
 
+    const paymentHandler = () => {
+        dispatch(setPaying(true));
+    };
+
     return (
         <ThemeProvider style={{position:'relative'}}>
             <Row style={styles.header}>
@@ -72,7 +63,7 @@ function Cart () {
                 </Col>
             </Row>
             <Row styles={styles.actions}>
-                <Col><Button style={styles.button}>Proccess</Button></Col>
+                <Col><Button style={styles.button} onClick={paymentHandler}>Pay Now</Button></Col>
             </Row>
             <Receipt />
             <Payment />

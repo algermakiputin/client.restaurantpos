@@ -1,22 +1,24 @@
-import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Row, Col } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetCart } from '../../../cart/cartSlice';
 
 function Receipt() {
-    const [show, setShow] = useState(false);
-
-    function modalHandler() {
-        setShow(!show);
-    };
+    const cart = useSelector((state) => state.cart); 
+    const dispatch = useDispatch(); 
 
     function getDate() {
         const date = new Date().toUTCString();
         return date.substring(0, date.length - 3);
     }
 
+    function hideModalHandler() {
+        dispatch(resetCart());
+    }
+
     return (
-        <Modal show={show}>
+        <Modal show={cart.paid} onHide={hideModalHandler}>
             <Modal.Header closeButton>
             <Modal.Title>Transaction Success</Modal.Title>
             </Modal.Header>
@@ -34,25 +36,25 @@ function Receipt() {
                             <Col xs={8} style={styles.columnHeader}>Description</Col>
                             <Col xs={4} style={{...styles.columnHeader, textAlign: 'right'}}>Total</Col>
                         </Row>
-                        <Row style={styles.lineItem}>
-                            <Col xs={8}>1x Soup</Col>
-                            <Col xs={4} style={styles.colRight}>5,000</Col>
-                        </Row>
-                        <Row style={styles.lineItem}>
-                            <Col xs={8}>1x Soup</Col>
-                            <Col xs={4} style={styles.colRight}>5,000</Col>
-                        </Row> 
+                        {
+                            cart.lineItems?.map((item) => (
+                                <Row style={styles.lineItem}>
+                                    <Col xs={8}>{item.name}</Col>
+                                    <Col xs={4} style={styles.colRight}>{item.price.toFixed(2)}</Col>
+                                </Row>
+                            ))
+                        } 
                     </div> 
                     <div style={styles.summary}>
                         <Row>
                             <Col xs={8} style={styles.columnHeader}>Total</Col>
-                            <Col xs={4} style={{...styles.columnHeader, textAlign: 'right'}}>4500</Col>
+                            <Col xs={4} style={{...styles.columnHeader, textAlign: 'right'}}>{cart.total.toFixed(2)}</Col>
                         </Row>
                     </div>
                 </div>
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={modalHandler}>
+            <Button variant="secondary" onClick={hideModalHandler}>
                 Close
             </Button> 
             </Modal.Footer>

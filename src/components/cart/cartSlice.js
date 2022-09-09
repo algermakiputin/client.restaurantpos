@@ -1,11 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+    lineItems: [],
+    total: 0,
+    isPaying: false,
+    paid: false
+};
+
 export const cartSlice = createSlice({
     name: 'cart',
-    initialState: {
-        lineItems: [],
-        total: 0
-    },
+    initialState: initialState,
     reducers: {
         addLineItem: (state, action) => {
             const itemExist = state?.lineItems?.some((item) => item.id === action.payload.id);
@@ -56,6 +60,22 @@ export const cartSlice = createSlice({
                 lineItems: lineItems
             } 
         }, 
+        setPaying: (state, action) => { 
+            return {
+                ...state,
+                isPaying: action.payload
+            }
+        },
+        setPaid: (state, action) => {
+            console.log(action);
+            return {
+                ...state,
+                paid: action.payload
+            }
+        },
+        resetCart: () => {
+            return initialState;
+        }
     }
 });
 
@@ -64,5 +84,14 @@ function recalculate(lineItems) {
         (partialSum, item) =>  partialSum + (item.price * item.quantity), 0);
 }
 
-export const { addLineItem, removeItem, emptyCart, descreaseQuantity, increaseQuantity } = cartSlice.actions;
+export const { 
+    addLineItem, 
+    removeItem, 
+    emptyCart, 
+    descreaseQuantity, 
+    increaseQuantity,
+    setPaying,
+    setPaid,
+    resetCart
+} = cartSlice.actions;
 export default cartSlice.reducer;
