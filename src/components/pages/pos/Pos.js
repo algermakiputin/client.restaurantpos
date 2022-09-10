@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, ThemeProvider, Container } from 'react-bootstrap';
-import Searchbar from "./searchbar/Searchbar";
-import Categories from "./categories/Categories";
+import Searchbar from "./searchbar/Searchbar"; 
 import ProductsTable from "./productsTable/ProductsTable";
 import Cart from "./cart/Cart";
 import { Dimension } from "../../window/Dimension"; 
@@ -9,11 +8,11 @@ import Sidebar from "../../template/Sidebar";
 
 const windowDimension = Dimension();
 
-function Pos () { 
+function Pos () {   
 
-    useEffect(() => {
-        document.title = "Point of Sale"
-    });
+    useEffect(() => { 
+        document.title = "Point of Sale";
+    }, []);
     //376897
     //55BDE5
     return ( 
@@ -24,8 +23,7 @@ function Pos () {
                         <Sidebar />
                     </Col>
                     <Col style={styles.itemsCol}> 
-                        <Searchbar />
-                        <Categories />
+                        <Searchbar /> 
                         <ProductsTable />
                     </Col>
                     <Col style={styles.orderCol} xs={4}>

@@ -39,7 +39,7 @@ function Receipt() {
                         {
                             cart.lineItems?.map((item) => (
                                 <Row style={styles.lineItem}>
-                                    <Col xs={8}>{item.name}</Col>
+                                    <Col xs={8} style={styles.product}>{item.name}</Col>
                                     <Col xs={4} style={styles.colRight}>{item.price.toFixed(2)}</Col>
                                 </Row>
                             ))
@@ -72,6 +72,9 @@ const styles = {
     },
     columnHeader: {
         fontWeight: 500,
+    },
+    product: {
+        fontSize: '0.9em'
     },
     orderHeader: {
         paddingBottom: '20px', 

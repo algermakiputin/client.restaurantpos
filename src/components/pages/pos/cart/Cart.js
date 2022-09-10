@@ -3,13 +3,13 @@ import { getComponentsHeight } from '../../../window/Dimension';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { removeItem, emptyCart, increaseQuantity, descreaseQuantity, setPaying } from '../../../cart/cartSlice'; 
 import Receipt from '../receipt/Receipt'; 
-import Payment from '../payment/Payment'; 
- 
+import Payment from '../payment/Payment';  
+
 const componentsHeight = getComponentsHeight(); 
 
 function Cart () { 
     const cart = useSelector((state) => state.cart);  
-    const dispatch = useDispatch();  
+    const dispatch = useDispatch();
 
     const Orders = () => {
         return cart?.lineItems?.length ? (
@@ -75,10 +75,10 @@ const styles = {
     header: {
         alignItems: 'center',
         marginBottom: '15px',
-        backgroundColor: '#FF9933',
+        backgroundColor: '#f4f4f5',
         padding: '10px',
         borderRadius: '5px',
-        color: "#fff"
+        color: "#333"
     },
     headerRight: {
         textAlign:'right'
@@ -102,7 +102,7 @@ const styles = {
     },
     product: {
         fontWeight: 500,
-        fontSize: '1em',
+        fontSize: '1.1em',
     },
     price: {
         opacity: '0.6',
@@ -110,7 +110,7 @@ const styles = {
     },
     quantity: {
         fontWeight: 500,
-        fontSize: '1em'
+        fontSize: '1.15em'
     },
     summary: {
         height: `${componentsHeight.summaryHeight}px`,

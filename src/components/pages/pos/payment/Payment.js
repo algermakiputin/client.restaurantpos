@@ -2,12 +2,16 @@ import Modal from 'react-bootstrap/Modal';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPaying, setPaid } from '../../../cart/cartSlice';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:8181'); 
+
 let rerenderingCount = 0;
 function Payment() {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
-    const [payment, setPayment] = useState(0);
+    const [payment, setPayment] = useState(0); 
    
     const modalHandler = () => {
         dispatch(setPaying(!cart.isPaying));
@@ -16,7 +20,8 @@ function Payment() {
     const submitHandler = () => {
         if (payment >= cart.total) {
             dispatch(setPaying(false));
-            dispatch(setPaid(true));
+            dispatch(setPaid(true)); 
+            socket.emit('new order', cart);
         }else {
             alert('Payment is not enough');
         }
