@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Row, Col, ThemeProvider, Container } from 'react-bootstrap';
 import Searchbar from "./searchbar/Searchbar"; 
 import ProductsTable from "./productsTable/ProductsTable";

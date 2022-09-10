@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import {Form, Row, Col, Button} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPaying, setPaid } from '../../../cart/cartSlice';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import io from 'socket.io-client';
 
 const socket = io('http://localhost:8181'); 
